@@ -1,0 +1,16 @@
+back
+
+*npm init -y == instal package.json
+
+INSTALACIONES
+express 
+express-fileupload
+mongoose
+dotenv  variables de entorno y guarda en valriables
+fs-extra manipular archivos del sistema nodejs ya tiene  un fs
+http-error  envia mensajes personalizados al cliente
+morgan - ver peticiones en consola 
+cloudinary  -- subir imagenes
+nodemon  -- reinicia el servidor in each modf
+
+ "type": "module", ==json para lea los imp
