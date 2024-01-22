@@ -13,4 +13,15 @@ morgan - ver peticiones en consola
 cloudinary  -- subir imagenes
 nodemon  -- reinicia el servidor in each modf
 
- "type": "module", ==json para lea los imp
+
+
+    "type": "module", ==json para lea los imp
+    "dev": "nodemon server" ==json correr nodemon
+
+
+-crear rutas
+-conexion
+
+    app.js = tiene toda la informacion de express
+    index.js=se encarga de llamar la configuracion de express, bd y solo se encargara de arrancar el codigo 
+    
