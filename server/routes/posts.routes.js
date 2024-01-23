@@ -7,7 +7,7 @@ router.get("/",)
 router.get("/posts", getPosts)
 router.get("/post/:id", getPost)
 router.post("/post", createPost)
-router.put("/post", updatePost)
-router.delete("/post", deletePost)
+router.put("/post/:id", updatePost)
+router.delete("/post/:id", deletePost)
 
 export default router
