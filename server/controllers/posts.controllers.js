@@ -1,4 +1,8 @@
+import * as fs from 'fs';
+import { uploadImage, deleteImage } from '../libs/claudinary.js'
 import Post from '../models/Post.js'
+
+
 
 // req el user envia  y resp lo que la bd envia
 export const getPosts = async (req, resp) => {
@@ -26,12 +30,22 @@ export const createPost = async (req, resp) => {
     try {
         // --crear post
         const { title, description } = req.body
-        const newPost = new Post({ title, description })
+        let dataImage
+        //get datos de la imagen
+        if (req.files.image) {
+            const upImage = await uploadImage(req.files.image.tempFilePath)
+            dataImage = { url: upImage.secure_url, public_id: upImage.public_id }
+        }
+        // eliminar de la carpeta upload --
+        await fs.promises.rm(req.files.image.tempFilePath)
+
+        const newPost = new Post({ title, description, image: dataImage })
         console.log(newPost)
 
         // --guardar post
         await newPost.save()
         return resp.json(newPost)
+
     } catch (error) {
         throw console.error(error)
     }
@@ -51,6 +65,10 @@ export const deletePost = async (req, resp) => {
     try {
         const postDeleted = await Post.findByIdAndDelete(req.params.id)
         if (!postDeleted) return resp.sendStatus(404)
+        if (postDeleted.image.public_id) {
+            const imageDeleted = await deleteImage(postDeleted.image.public_id)
+        }
+
         resp.sendStatus(204)
         console.log("postDeleted")
     } catch (error) {
