@@ -9,7 +9,8 @@ export const getPosts = async (req, resp) => {
     try {
         const posts = await Post.find()
         resp.send(posts)
-        console.log(posts)
+        // console.log(posts)
+        console.log("get all posts")
     } catch (error) {
         throw console.error(error)
     }
@@ -30,14 +31,14 @@ export const createPost = async (req, resp) => {
     try {
         // --crear post
         const { title, description } = req.body
-        let dataImage
+        let dataImage = null
         //get datos de la imagen
-        if (req.files.image) {
+        if (req.files?.image) {
             const upImage = await uploadImage(req.files.image.tempFilePath)
             dataImage = { url: upImage.secure_url, public_id: upImage.public_id }
+            await fs.promises.rm(req.files.image.tempFilePath)
         }
         // eliminar de la carpeta upload --
-        await fs.promises.rm(req.files.image.tempFilePath)
 
         const newPost = new Post({ title, description, image: dataImage })
         console.log(newPost)

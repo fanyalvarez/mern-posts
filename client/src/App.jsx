@@ -1,19 +1,19 @@
 import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { PostFormPage, HomePage, NotFoundPage } from "./pages/";
-import { PostContex } from "./context/PostContex";
+import { PostProvider } from "./context/postContext";
 
 function App() {
   return (
     <>
-      <PostContex>
+      <PostProvider>
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/createPost" element={<PostFormPage />}></Route>
           <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
-      </PostContex>
+      </PostProvider>
     </>
   );
 }
